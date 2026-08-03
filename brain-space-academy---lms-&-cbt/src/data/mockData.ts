@@ -462,3 +462,34 @@ Persiapkan diri Anda menghadapi persaingan seleksi Calon Pegawai Negeri Sipil (C
   }
 ];
 
+import { useState, useEffect } from 'react';
+import { supabase } from '../lib/supabase'; // Sesuaikan path relative ke file supabase.ts
+
+export const DataComponent = () => {
+  const [items, setItems] = useState<any[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+
+  const fetchData = async () => {
+    setLoading(true);
+    const { data, error } = await supabase
+      .from('nama_tabel') // Ganti dengan nama tabel di Supabase Anda
+      .select('*');
+
+    if (error) {
+      console.error('Error fetching data:', error.message);
+    } else {
+      setItems(data || []);
+    }
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  return (
+    <div>
+      {loading ? <p>Loading...</p> : items.map(item => <div key={item.id}>{item.title}</div>)}
+    </div>
+  );
+};
