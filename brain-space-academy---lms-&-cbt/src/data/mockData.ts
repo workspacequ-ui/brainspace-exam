@@ -493,3 +493,49 @@ export const DataComponent = () => {
     </div>
   );
 };
+
+
+import { supabase } from '../lib/supabase';
+
+// --- TAMBAH DATA (INSERT) ---
+export const addData = async (newItem: { title: string; description: string }) => {
+  const { data, error } = await supabase
+    .from('nama_tabel')
+    .insert([newItem])
+    .select(); // Mengembalikan data yang baru ditambahkan
+
+  if (error) {
+    console.error('Error adding data:', error.message);
+    return null;
+  }
+  return data;
+};
+
+// --- EDIT DATA (UPDATE) ---
+export const updateData = async (id: string | number, updatedFields: Partial<{ title: string; description: string }>) => {
+  const { data, error } = await supabase
+    .from('nama_tabel')
+    .update(updatedFields)
+    .eq('id', id) // Memilih baris berdasarkan ID
+    .select();
+
+  if (error) {
+    console.error('Error updating data:', error.message);
+    return null;
+  }
+  return data;
+};
+
+// --- HAPUS DATA (DELETE) ---
+export const deleteData = async (id: string | number) => {
+  const { error } = await supabase
+    .from('nama_tabel')
+    .delete()
+    .eq('id', id);
+
+  if (error) {
+    console.error('Error deleting data:', error.message);
+    return false;
+  }
+  return true;
+};
