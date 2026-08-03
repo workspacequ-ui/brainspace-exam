@@ -1,6 +1,0 @@
-{
-  "name": "Brain Space Academy - LMS & CBT",
-  "description": "Platform LMS & Sistem Ujian Online (CBT) Brain Space Academy dengan LJK Digital, PDF Split-View Engine, Manajemen User, Pembelajaran, dan Marketplace Sekolah.",
-  "requestFramePermissions": [],
-  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
-}
